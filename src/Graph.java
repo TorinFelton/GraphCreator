@@ -74,7 +74,7 @@ public class Graph {
     public void addWall(int x, int y) { // Adds a wall point - object
         this.contents.get(y).set(x, 1);
     }
-    
+
     public void constructRectangle(int x, int y, int side1, int side2) { // Constructs a rectangle out of walls
         int wallX = side1;
         int wallY = side2;
