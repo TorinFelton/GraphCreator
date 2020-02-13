@@ -7,9 +7,10 @@ public class Graph {
 
     public int xSize; // Global variables
     public int ySize;
-    public char wallChar = '.';
-    public char pointChar = 'X';
-    public char trailChar = 't';
+    public char wallChar = '-'; // "-" to represent flat lines
+    public char pointChar = 'X'; // for default plot points
+    public char trailChar = '/'; // "/" to represent gradient lines positive
+    public char negTrailChar = '\\'; // "\" to represent negative grad line
 
     public Graph(int x, int y) {
         x++;
@@ -44,6 +45,23 @@ public class Graph {
             ableToAdd = false;
         } else {
             this.contents.get(y).set(x, 2);
+        }
+
+
+        return ableToAdd;
+    }
+
+    public boolean addPointType(int x, int y, int type) { // Adds a point of specific type
+        boolean ableToAdd = false;
+
+        if (x > -1 && y > -1) {
+            ableToAdd = true;
+
+            if (contents.get(y).get(x) == 1) {
+                ableToAdd = false;
+            } else {
+                this.contents.get(y).set(x, type);
+            }
         }
 
 
@@ -139,14 +157,17 @@ public class Graph {
             toPrint = contents.get(i);
             for (int point : toPrint) { // This now converts the numbers to signs when outputting
                 switch (point) {
-                    case 1: // 1 == wall, represented by '.'
+                    case 1: // 1 == wall, represented by '-'
                         System.out.print(wallChar + " ");
                         break;
                     case 2: // 2 == significant point, represented by 'X'
                         System.out.print(pointChar + " ");
                         break;
                     case 3:
-                        System.out.print(trailChar + " ");
+                        System.out.print(trailChar + " "); // "/"
+                        break;
+                    case 4:
+                        System.out.println(negTrailChar + " "); // "\"
                         break;
                     default: // Default is to just print the integer value (usually just prints 0 to represent emptiness)
                         System.out.print(point + " ");
@@ -211,7 +232,7 @@ public class Graph {
                         toReturn += (trailChar + " ");
                         break;
                     default: // Default is to just print the integer value (usually just prints 0 to represent emptiness)
-                        toReturn += ("\u2588 "); // (point + " ")
+                        toReturn += ("  "); // (point + " ") ("█ ") if you wish to use a square
 
                 }
 

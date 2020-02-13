@@ -21,6 +21,7 @@ public class EquationGraphs {
                 data = reader.read();
                 fileContents += (char) data;
             }
+            fileContents = fileContents.substring(0, fileContents.length()-1);
             for(int i = 0; i < sampleAmount; i++) {
                 try {
                     Thread.sleep(0);
@@ -49,14 +50,21 @@ public class EquationGraphs {
 
         // Work out equation
 
-        // y = x^2
         int y = 0;
         int x = 0;
+        int prevY = y; // This is to reference later for the char / or -
         boolean valid = true;
+        int pointType = 2; // 1 = "-", 3 = "/", 4 = "\"
 
         while (valid) {
-            // y = (int) Math.pow(x, 2); // y = x^2
-            y = 100-x;
+            //y = (int) Math.pow(x, 3); // y = x^2
+            y = (int) Math.pow((x - 2), 3) + 3; // (x - 2)^3 + 3
+
+            if (prevY > y) pointType = 4; // The previous point was higher, so we are going down.
+            else if (prevY < y) pointType = 3; // The previous point was lower, so we are going up.
+            else pointType = 1; // We have not changed height as prevY == y; So continue straight ("-")
+
+            if (x == 0) pointType = 2; // If this is the start of the line, we mark it with the significant point char ("X")
 
             if (y > graph1.ySize) {
                 valid = false;
@@ -64,10 +72,11 @@ public class EquationGraphs {
                 valid = false;
             } else {
                 System.out.println("Added point: " + x + " " + y);
-                newPerson.posGraph.addPoint(x, y); // Plot point
+                newPerson.posGraph.addPointType(x, y, pointType); // Plot point
             }
 
             x++;
+            prevY = y;
         }
 
         return newPerson.posGraph;
