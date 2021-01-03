@@ -6,8 +6,10 @@
      - Starting points are declared, then they will move like snakes (with a non-expiring trail) and change direction based on a probability
       - Causes the graphs below
 
-## Rocket Ship
-![AutoGen Art](https://i.ibb.co/k5tpZM9/rocket-Ship.png)
+
 
 ## Flower
 ![AutoGen Art](https://i.ibb.co/DkggtTT/2.png)
+
+## Rocket Ship
+![AutoGen Art](https://i.ibb.co/k5tpZM9/rocket-Ship.png)
